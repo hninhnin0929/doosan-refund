@@ -46,9 +46,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
             )}
           </button>
           {isOpen && (
-            <div id={`submenu-${item.title}`} className="ml-4">
+            <div id={`submenu-${item.title}`}>
               {item.children.map((child, index) => (
-                <MenuItem key={index} item={child} />
+                <MenuItem key={`submenu-${index}`} item={child} />
               ))}
             </div>
           )}
