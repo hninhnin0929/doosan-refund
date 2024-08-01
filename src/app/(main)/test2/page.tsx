@@ -1,7 +1,10 @@
-import React from 'react'
+import Layout from "@/components/Layout";
+import React from "react";
 
 export default function Test2() {
   return (
-    <div>Test2</div>
-  )
+    <Layout title="Customers">
+      <div>Test2</div>
+    </Layout>
+  );
 }
