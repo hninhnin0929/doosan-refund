@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, MouseEvent, useLayoutEffect, useEffect, useRef } from 'react';
+import React, { MouseEvent, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight, Folder } from 'lucide-react';
+import { atom, useAtom } from 'jotai';
 
+// Define interfaces
 interface MenuItem {
   title: string;
   href?: string;
@@ -14,17 +16,23 @@ interface MenuItemProps {
   item: MenuItem;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const isOpenRef = useRef(isOpen);
+// Define atom for managing open/close state
+const openItemsAtom = atom<{ [key: string]: boolean }>({});
 
-  const handleButtonClick = () => {
-    setIsOpen(prevState => !prevState);
-  };
+// Memoized MenuItem component
+const MenuItem: React.FC<MenuItemProps> = React.memo(({ item }) => {
+  const [openItems, setOpenItems] = useAtom(openItemsAtom);
+  const isOpen = openItems[item.title] || false;
+
+  const handleButtonClick = useCallback(() => {
+    setOpenItems((prevState: { [x: string]: any; }) => ({
+      ...prevState,
+      [item.title]: !prevState[item.title],
+    }));
+  }, [item.title, setOpenItems]);
 
   const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.stopPropagation(); 
-
+    e.stopPropagation();
   };
 
   return (
@@ -45,9 +53,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
               <ChevronRight className="h-4 w-4" />
             )}
           </button>
-          {console.log(isOpen)}
           {isOpen && (
-            <div id={`submenu-${item.title}`} className='ml-4'>
+            <div id={`submenu-${item.title}`} className="ml-4">
               {item.children.map((child, index) => (
                 <MenuItem key={`submenu-${child.title}-${index}`} item={child} />
               ))}
@@ -66,8 +73,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
       )}
     </div>
   );
-};
-
+});
+// Set displayName for debugging
+MenuItem.displayName = 'MenuItem';
 const Sidebar: React.FC = () => {
   const menuItems: MenuItem[] = [
     {
