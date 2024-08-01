@@ -45,10 +45,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ item }) => {
               <ChevronRight className="h-4 w-4" />
             )}
           </button>
+          {console.log(isOpen)}
           {isOpen && (
-            <div id={`submenu-${item.title}`}>
+            <div id={`submenu-${item.title}`} className='ml-4'>
               {item.children.map((child, index) => (
-                <MenuItem key={`submenu-${index}`} item={child} />
+                <MenuItem key={`submenu-${child.title}-${index}`} item={child} />
               ))}
             </div>
           )}
@@ -97,7 +98,7 @@ const Sidebar: React.FC = () => {
     <div className="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute min-h-screen inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
       <nav>
         {menuItems.map((item, index) => (
-          <MenuItem key={index} item={item} />
+          <MenuItem key={`parentmenu-${item.title}-${index}`} item={item} />
         ))}
       </nav>
     </div>
