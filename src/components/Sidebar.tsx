@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { ChevronDown, ChevronRight, Folder } from 'lucide-react';
 import { atom, useAtom } from 'jotai';
 
-// Define interfaces
 interface MenuItem {
   title: string;
   href?: string;
@@ -19,7 +18,6 @@ interface MenuItemProps {
 // Define atom for managing open/close state
 const openItemsAtom = atom<{ [key: string]: boolean }>({});
 
-// Memoized MenuItem component
 const MenuItem: React.FC<MenuItemProps> = React.memo(({ item }) => {
   const [openItems, setOpenItems] = useAtom(openItemsAtom);
   const isOpen = openItems[item.title] || false;
@@ -74,8 +72,8 @@ const MenuItem: React.FC<MenuItemProps> = React.memo(({ item }) => {
     </div>
   );
 });
-// Set displayName for debugging
 MenuItem.displayName = 'MenuItem';
+
 const Sidebar: React.FC = () => {
   const menuItems: MenuItem[] = [
     {
