@@ -3,7 +3,6 @@ import ThemeController from "@/components/ThemeController";
 
 export default function Layout({
   children,
-  title,
 }: Readonly<{
   children: React.ReactNode;
   title?: string;
@@ -14,17 +13,17 @@ export default function Layout({
       <Sidebar />
 
       {/* main content area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         {/* header */}
-        <nav className="sticky top-0 z-10 p-2 flex items-center justify-between h-10 bg-green-50">
-          <div className="font-semibold text-lg">{title || 'Dashboard'}</div>
+        <nav className="sticky top-0 z-10 p-2 flex items-center justify-between h-10">
+          <div className="font-semibold text-2xl">Doosan</div>
           <div className="">
             <ThemeController />
           </div>
         </nav>
 
         {/* main content */}
-        <div className="bg-base-200 px-4 py-4 flex-1 overflow-y-auto">
+        <div className="p-4 overflow-y-auto">
           {children}
         </div>
       </div>

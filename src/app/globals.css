@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-custom {
+  @apply px-4 py-2 text-white rounded text-xs;
+}
+
+.btn-edit {
+  @apply bg-btn-edit hover:bg-btn-edit-hover;
+}
+
+.btn-delete {
+  @apply bg-btn-delete hover:bg-btn-delete-hover;
+}
+
+.btn-print {
+  @apply bg-btn-print hover:bg-btn-print-hover;
+}
+
+.btn-export {
+  @apply bg-btn-export hover:bg-btn-export-hover;
+}
+
+.btn-pagination {
+  @apply bg-btn-pagination;
+}
+
+.btn-pagination-active {
+  @apply bg-btn-pagination-active;
+}
